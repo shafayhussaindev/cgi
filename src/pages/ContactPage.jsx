@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import SectionHeader from "../components/SectionHeader.jsx";
 import ContactForm from "../components/ContactForm.jsx";
-import GlassButton from "../components/GlassButton.jsx";
+import Button from "../components/Button.jsx";
 import LinkedInBand from "../components/LinkedInBand.jsx";
 import { site, contact } from "../data/content.js";
 
@@ -25,14 +25,14 @@ function ContactPage() {
       {/* Form card and LinkedIn box (ice) */}
       <section className="section-ice">
         <div className="container contact-layout">
-          <div className="contact-card">
+          <div className="card contact-card">
             <ContactForm />
           </div>
 
           <aside className="contact-linkedin">
             <h2 className="contact-linkedin-title">{contact.linkedinTitle}</h2>
             <p className="contact-linkedin-text">{contact.linkedinText}</p>
-            <GlassButton text="LinkedIn" href={site.linkedinUrl} showArrow={true} />
+            <Button text="LinkedIn" href={site.linkedinUrl} variant="glass" showArrow={true} />
           </aside>
         </div>
       </section>

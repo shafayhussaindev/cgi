@@ -1,11 +1,11 @@
-// CookieBanner is the small glass card shown at the bottom-left on a first visit.
+// CookieBanner is the small card shown at the bottom-left on a first visit.
 // It asks the visitor to accept or reject cookies, or open the settings.
 //
 // Props (all are functions from App.jsx):
 //   onAcceptAll, onRejectAll, onOpenSettings
 
 import { Link } from "react-router-dom";
-import GlassButton from "./GlassButton.jsx";
+import Button from "./Button.jsx";
 import { cookies } from "../data/content.js";
 
 function CookieBanner(props) {
@@ -19,8 +19,8 @@ function CookieBanner(props) {
       </p>
 
       <div className="cookie-banner-buttons">
-        <GlassButton text={cookies.acceptAll} onClick={props.onAcceptAll} />
-        <GlassButton text={cookies.rejectAll} variant="glass-light" onClick={props.onRejectAll} />
+        <Button text={cookies.acceptAll} onClick={props.onAcceptAll} />
+        <Button text={cookies.rejectAll} variant="glass" onClick={props.onRejectAll} />
 
         {/* This text button opens the cookie settings popup */}
         <button type="button" className="cookie-banner-settings" onClick={props.onOpenSettings}>

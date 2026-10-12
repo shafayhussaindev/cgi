@@ -7,7 +7,7 @@
 //   onClose      - function to close the popup without saving
 
 import { useState, useEffect } from "react";
-import GlassButton from "./GlassButton.jsx";
+import Button from "./Button.jsx";
 import { cookies } from "../data/content.js";
 
 function CookieSettingsModal(props) {
@@ -112,8 +112,8 @@ function CookieSettingsModal(props) {
         </ul>
 
         <div className="cookie-modal-buttons">
-          <GlassButton text={cookies.save} onClick={handleSave} />
-          <GlassButton text={cookies.acceptAll} variant="glass-light" onClick={props.onAcceptAll} />
+          <Button text={cookies.save} onClick={handleSave} />
+          <Button text={cookies.acceptAll} variant="glass" onClick={props.onAcceptAll} />
         </div>
       </div>
     </div>

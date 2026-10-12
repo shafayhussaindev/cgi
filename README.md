@@ -44,13 +44,13 @@ npm run preview
 src/
   data/content.js        ← ALL the text and links on the website
   index.css              ← ALL the styles (colours, fonts, layout) in one file
-  components/            ← reusable pieces (Navbar, Footer, buttons, cookie popups...)
+  components/            ← reusable pieces (Navbar, Footer, Button, cookie popups...)
   pages/                 ← one file per page
   App.jsx                ← the list of pages and the cookie logic
 public/                  ← images (logos) and the favicon
 ```
 
-All styles are in `src/index.css`, split into numbered sections (Navbar, Footer, Home page...). The list of sections is at the top of the file. Keep the GLOBAL section last: when two rules clash, the lower one wins.
+All styles are in `src/index.css`, split into numbered sections (Navbar, Footer, Home page...). The list of sections is at the top of the file.
 
 ## 5. How to change text
 
@@ -62,16 +62,16 @@ The Terms and Privacy pages contain **placeholder text**. Replace it in `legal.t
 
 ## 6. How to change colours and fonts
 
-Open `src/index.css` and go to section 1 (VARIABLES). The brand colours are at the top, for example:
+Open `src/index.css` and go to section 1 (VARIABLES). The colours are at the top, for example:
 
 ```css
---cgi-blue: #234F94;
---cgi-orange: #D25B31;
+--blue: #234F94;
+--paper: #FDFCF8;
 ```
 
 Change a value once and it updates across the whole site. Please do not type colour codes anywhere else.
 
-Fonts are loaded from Google Fonts in `index.html` and named in section 1 of `index.css` (`--font-heading`, `--font-body`).
+The site uses one font, Plus Jakarta Sans. It is loaded from Google Fonts in `index.html` and named in section 1 of `index.css` (`--font`).
 
 ## 7. Where to put the LinkedIn link
 
@@ -87,13 +87,17 @@ Replace `#` with your page address, e.g. `"https://www.linkedin.com/company/your
 
 Replace `public/logo-full-colour.png` (blue logo, for light backgrounds) and `public/logo-reversed.png` (white logo, for the dark footer). Keep the same file names.
 
-## 8b. The home page video
+## 8b. The home page image
 
-The globe video behind the home page heading is set in `content.js` (`home.hero.videoUrl` and `posterUrl`). It is currently hosted by someone else; put your own `.mp4` in `public/` and change the address to e.g. `"/hero.mp4"`. The colour shift toward CGI blue is the `filter` line in the HOME HERO section of `src/index.css`.
+The dark image behind the home page heading is `public/hero-bg.webp`, set in `content.js` (`home.hero.image`). To change it, put your own image in `public/` and update that path.
 
-The heading's line breaks come from `home.hero.titleLines`. The short "slide in" animation when the site loads is explained at the top of `index.html` and in the GLOBAL section of `src/index.css`.
+The footer shows the same photo behind its glass panel, set separately in `footer.backgroundImage`, so the two can differ if you like.
 
-## 8c. Glass effects on the live site
+The site has no animations on purpose. Only colours change gently when you hover a link or button.
+
+## 8c. Liquid glass (navbar, buttons, chips)
+
+The navbar, every button and the focus-area chips use an iOS-style "liquid glass" look: see-through, blurred, with bright edges. The settings are the `--glass-...` variables in section 1 of `src/index.css`.
 
 Always write the blur as two lines in this order:
 
@@ -102,7 +106,7 @@ Always write the blur as two lines in this order:
 backdrop-filter: blur(16px);
 ```
 
-If the plain `backdrop-filter` comes first, `npm run build` removes it and the glass looks solid on the deployed site, even though it looks fine in `npm run dev`.
+If the plain `backdrop-filter` comes first, `npm run build` removes it and the glass looks solid on the live site, even though it looks fine in `npm run dev`.
 
 ## 9. How to add a new page
 
@@ -118,7 +122,7 @@ If the plain `backdrop-filter` comes first, `npm run build` removes it and the g
    ```
 4. To show it in the navbar and footer, add `{ label: "About", to: "/about" }` to `navLinks` in `content.js`.
 
-Remember to alternate section backgrounds down the page: `section-white`, then `section-ice`, then `section-white`, and so on.
+Remember to alternate section backgrounds down the page: `section-white` (off-white), then `section-ice` (warm ivory), then `section-white`, and so on.
 
 ## 10. The contact form
 

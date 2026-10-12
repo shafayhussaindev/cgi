@@ -3,7 +3,7 @@
 // It does NOT send email yet (see the comment in handleSubmit).
 
 import { useState } from "react";
-import GlassButton from "./GlassButton.jsx";
+import Button from "./Button.jsx";
 import { contact } from "../data/content.js";
 
 // The empty form, used at the start and after sending
@@ -118,7 +118,7 @@ function ContactForm() {
         {showError("message")}
       </div>
 
-      <GlassButton text={contact.submitText} type="submit" showArrow={true} />
+      <Button text={contact.submitText} type="submit" showArrow={true} />
 
       {/* Thank-you message, read out by screen readers when it appears */}
       <p className="contact-form-success" role="status">

@@ -8,7 +8,6 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
-import MotionEffects from "./components/MotionEffects.jsx";
 import CookieBanner from "./components/CookieBanner.jsx";
 import CookieSettingsModal from "./components/CookieSettingsModal.jsx";
 
@@ -76,18 +75,6 @@ function App() {
   return (
     <>
       <ScrollToTop />
-
-      {/* Hidden "ripple" filter used by .glass-box on hover (see the GLOBAL section of index.css).
-          It bends the text with slowly moving noise, like looking through wavy glass. */}
-      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
-        <filter id="glass-distort" x="-5%" y="-10%" width="110%" height="120%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.01 0.04" numOctaves="2" seed="3" result="noise">
-            <animate attributeName="baseFrequency" dur="5s" values="0.01 0.04;0.018 0.06;0.01 0.04" repeatCount="indefinite" />
-          </feTurbulence>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-      </svg>
-      <MotionEffects />
       <Navbar />
 
       {/* The current page appears here */}

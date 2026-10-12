@@ -1,5 +1,5 @@
 // WhatWeDoPage ("/what-we-do") explains what the platform is for.
-// Left: text. Right: a blue panel about static and live intelligence.
+// Left: text. Right: a dark panel about static and live intelligence.
 
 import { useEffect } from "react";
 import LinkedInBand from "../components/LinkedInBand.jsx";
@@ -13,37 +13,30 @@ function WhatWeDoPage() {
 
   return (
     <>
-      <section className="section-ice page-top glass-backdrop">
+      <section className="section-white page-top">
         <div className="container what-layout">
           {/* Left column: heading and paragraphs */}
-          <div id="approach" className="what-text">
+          <div className="what-text">
             <span className="eyebrow">{whatWeDo.eyebrow}</span>
-            <h1 className="what-title">{whatWeDo.title}</h1>
+            <h1 className="section-header-title section-header-page-title">{whatWeDo.title}</h1>
             {whatWeDo.paragraphs.map((paragraph) => (
-              <p key={paragraph} className="what-paragraph">
+              <p key={paragraph} className="lead">
                 {paragraph}
               </p>
             ))}
           </div>
 
-          {/* Right column: blue panel */}
-          <aside id="static-live" className="what-panel glass-card-blue" data-tilt>
-            {/* Faint rings in the corner */}
-            <svg className="what-panel-rings" viewBox="0 0 300 300" aria-hidden="true">
-              <circle cx="300" cy="0" r="120" />
-              <circle cx="300" cy="0" r="180" />
-              <circle cx="300" cy="0" r="240" />
-            </svg>
-
+          {/* Right column: dark panel */}
+          <aside className="what-panel">
             <h2 className="what-panel-title">{whatWeDo.panel.title}</h2>
             <p className="what-panel-text">{whatWeDo.panel.text}</p>
 
             <div className="what-panel-columns">
               {whatWeDo.panel.columns.map((column) => (
                 <div key={column.label}>
-                  {/* White eyebrow: orange is not allowed on blue */}
-                  <h3 className="eyebrow eyebrow-white">{column.label}</h3>
-                  <p className="what-panel-column-text">{column.text}</p>
+                  {/* Light eyebrow: orange is not allowed on dark backgrounds */}
+                  <h3 className="eyebrow eyebrow-light">{column.label}</h3>
+                  <p className="what-panel-text">{column.text}</p>
                 </div>
               ))}
             </div>

@@ -11,54 +11,13 @@
     />
     <title>Consumer Goods Intelligence</title>
 
-    <!-- Google Fonts: Saira (headings), IBM Plex Sans (body), IBM Plex Mono (small numbers) -->
+    <!-- Google Fonts: Plus Jakarta Sans (the only font on the site) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500;600;700&family=Saira:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <!--
-      Entrance animation (plays once when the site first loads).
-      1. Adds the class "anim" straight away, which hides the navbar items and hero text.
-      2. When the fonts are ready (or after 0.9s at most), adds "go", which plays the animations.
-      3. When they have finished, removes both classes so the page is back to normal.
-      The CSS for this is at the bottom of src/styles/global.css.
-    -->
-    <script>
-      (function () {
-        // People who prefer less motion get the finished page with no animation
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          return;
-        }
-
-        var root = document.documentElement;
-        root.classList.add("anim");
-
-        var started = false;
-        function start() {
-          if (started) {
-            return;
-          }
-          started = true;
-          root.classList.add("go");
-
-          // The last animation ends after about 1.7s
-          setTimeout(function () {
-            root.classList.remove("anim", "go");
-          }, 2200);
-        }
-
-        // Wait for the fonts so the text doesn't animate in the wrong font
-        setTimeout(start, 900);
-        if (document.fonts) {
-          document.fonts.ready.then(start, start);
-        } else {
-          start();
-        }
-      })();
-    </script>
   </head>
   <body>
     <div id="root"></div>

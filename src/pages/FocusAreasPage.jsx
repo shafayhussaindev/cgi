@@ -13,27 +13,20 @@ function FocusAreasPage() {
 
   return (
     <>
-      {/* Blue page header band */}
-      <section className="section-blue page-top">
+      {/* Page header (white) */}
+      <section className="section-white page-top">
         <div className="container">
-          <SectionHeader
-            eyebrow={focusAreas.eyebrow}
-            title={focusAreas.title}
-            intro={focusAreas.intro}
-            isPageTitle={true}
-            onBlue={true}
-          />
+          <SectionHeader eyebrow={focusAreas.eyebrow} title={focusAreas.title} intro={focusAreas.intro} isPageTitle={true} />
         </div>
       </section>
 
-      {/* Glass cards on a white section */}
-      <section className="section-white glass-backdrop">
+      {/* One card per area (ice) */}
+      <section className="section-ice">
         <div className="container">
           <ul className="focus-grid">
             {focusAreas.areas.map((area) => (
-              <li key={area.number} id={"area-" + area.number} className="focus-card glass-card" data-tilt>
-                {/* Orange numbers are fine here because the card is white */}
-                <span className="focus-card-number">{area.number}</span>
+              <li key={area.number} id={"area-" + area.number} className="card focus-card">
+                <span className="item-number">{area.number}</span>
                 <h2 className="focus-card-title">{area.title}</h2>
                 <p className="focus-card-text">{area.text}</p>
               </li>

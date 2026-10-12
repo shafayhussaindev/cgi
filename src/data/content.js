@@ -12,60 +12,23 @@ export const site = {
 };
 
 // ---------- Navigation links (used in the navbar and footer) ----------
-// "submenu" is the dropdown shown when you hover a link in the navbar.
-// Each "to" with a # jumps to a part of that page (e.g. "#force-01").
-// Leave "submenu" out if a link should have no dropdown.
 export const navLinks = [
   { label: "Home", to: "/" },
-  {
-    label: "The Shift",
-    to: "/the-shift",
-    submenu: [
-      { label: "Digital Product Passports", to: "/the-shift#force-01" },
-      { label: "ESG transparency", to: "/the-shift#force-02" },
-      { label: "Supply-chain visibility", to: "/the-shift#force-03" },
-      { label: "Digital sales and engagement", to: "/the-shift#force-04" },
-    ],
-  },
-  {
-    label: "What We Do",
-    to: "/what-we-do",
-    submenu: [
-      { label: "Our approach", to: "/what-we-do#approach" },
-      { label: "Static meets live intelligence", to: "/what-we-do#static-live" },
-    ],
-  },
-  {
-    label: "Focus Areas",
-    to: "/focus-areas",
-    submenu: [
-      { label: "Digital Product Passports", to: "/focus-areas#area-01" },
-      { label: "Fashion, footwear & textiles", to: "/focus-areas#area-02" },
-      { label: "Electronics & consumer goods", to: "/focus-areas#area-03" },
-      { label: "Virtual factory & Industry 4.0", to: "/focus-areas#area-04" },
-      { label: "ESG & circularity", to: "/focus-areas#area-05" },
-      { label: "B2B and B2C digital growth", to: "/focus-areas#area-06" },
-      { label: "Supply-chain visibility", to: "/focus-areas#area-07" },
-    ],
-  },
+  { label: "The Shift", to: "/the-shift" },
+  { label: "What We Do", to: "/what-we-do" },
+  { label: "Focus Areas", to: "/focus-areas" },
 ];
 
 // ---------- Home page ----------
 export const home = {
   hero: {
     eyebrow: "Consumer Goods Intelligence",
-    // The heading is split into lines so each line can slide up on its own
-    titleLines: ["Making sense of", "digital transformation", "in consumer goods"],
+    title: "Making sense of digital transformation in consumer goods",
     text: "Plain-English insight on Digital Product Passports, ESG transparency, supply-chain visibility and the virtual factory, for the people building consumer goods.",
     linkedinButton: "LinkedIn",
     exploreButton: "Explore the shift",
-    // Background video and the still image shown while it loads.
-    // TODO: these are hosted by someone else. Replace them with your own files
-    // (put them in /public and write e.g. "/hero.mp4") before launch.
-    videoUrl:
-      "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260912_104036_bd6924f6-3c8e-417e-8465-6d03c8c2e9e6.mp4",
-    posterUrl:
-      "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/82e7eb75-c65f-490a-99b5-f3d1cad54200.webp",
+    // Background image behind the heading (put the file in /public)
+    image: "/hero-bg.webp",
   },
   shiftPreview: {
     eyebrow: "The Shift",
@@ -95,6 +58,8 @@ export const shift = {
       number: "01",
       title: "Digital Product Passports",
       text: "Regulation is arriving faster than most teams are ready for, and it reaches deep into product and supplier data.",
+      // Icon in the card's circle (see components/Icon.jsx for the choices)
+      icon: "qr-code",
       // Optional photo: put the file in /public and give its path here
       image: "/dpp.webp",
       imageAlt:
@@ -104,6 +69,7 @@ export const shift = {
       number: "02",
       title: "ESG transparency",
       text: "No longer optional. Buyers and consumers now expect credible, product-level sustainability information.",
+      icon: "leaf",
       image: "/esg.webp",
       imageAlt:
         "Folded textiles with an ESG transparency QR tag beside a tablet showing environmental, social and governance metrics",
@@ -112,6 +78,7 @@ export const shift = {
       number: "03",
       title: "Supply-chain visibility",
       text: "A competitive advantage rather than a back-office task, built on connected supplier and production data.",
+      icon: "truck",
       image: "/supply-chain.webp",
       imageAlt:
         "Laptop showing a supply-chain visibility dashboard with orders, shipments and suppliers, in front of a container port",
@@ -120,6 +87,7 @@ export const shift = {
       number: "04",
       title: "Digital sales and engagement",
       text: "Now depend directly on the quality and structure of the product data behind every channel.",
+      icon: "trending-up",
       image: "/digital-sales.webp",
       imageAlt:
         "Laptop showing a digital sales and engagement dashboard beside a phone with a home textiles shop, next to folded fabrics",
@@ -227,8 +195,8 @@ export const footer = {
   contactEyebrow: "Contact us",
   contactTitle: "Let's talk about your digital transformation.",
   contactButton: "Get in touch",
-  // Photo seen through the frosted glass footer
-  backgroundImage: "/footer-bg.webp",
+  // Photo behind the frosted glass footer (the same one as the Home hero)
+  backgroundImage: "/hero-bg.webp",
   exploreTitle: "Explore",
   connectTitle: "Connect",
   rights: "Consumer Goods Intelligence. All rights reserved.",

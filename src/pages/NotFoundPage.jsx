@@ -1,7 +1,7 @@
 // NotFoundPage is shown when someone visits an address that does not exist.
 
 import { useEffect } from "react";
-import GlassButton from "../components/GlassButton.jsx";
+import Button from "../components/Button.jsx";
 import SectionHeader from "../components/SectionHeader.jsx";
 import { site, notFound } from "../data/content.js";
 
@@ -15,7 +15,7 @@ function NotFoundPage() {
     <section className="section-white page-top">
       <div className="container">
         <SectionHeader eyebrow={notFound.eyebrow} title={notFound.title} intro={notFound.text} isPageTitle={true} />
-        <GlassButton text={notFound.buttonText} to="/" showArrow={true} />
+        <Button text={notFound.buttonText} to="/" showArrow={true} />
       </div>
     </section>
   );
