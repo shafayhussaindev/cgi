@@ -1,7 +1,7 @@
 // Icon draws one small line icon. The shapes are copied from Lucide (lucide.dev, ISC licence).
 //
 // Props:
-//   name      - "qr-code", "leaf", "truck", "trending-up" or "arrow-up-right"
+//   name      - "qr-code", "leaf", "truck", "trending-up", "arrow-up-right" or "arrow-up"
 //   className - optional CSS class
 //
 // To add an icon: find it on lucide.dev, copy the parts inside its <svg>, and add them below.
@@ -48,6 +48,12 @@ const shapes = {
     <>
       <path d="M7 7h10v10" />
       <path d="M7 17 17 7" />
+    </>
+  ),
+  "arrow-up": (
+    <>
+      <path d="m5 12 7-7 7 7" />
+      <path d="M12 19V5" />
     </>
   ),
 };

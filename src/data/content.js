@@ -28,7 +28,7 @@ export const home = {
     linkedinButton: "LinkedIn",
     exploreButton: "Explore the shift",
     // Background image behind the heading (put the file in /public)
-    image: "/hero-bg.webp",
+    image: "/hero-landscape.webp",
   },
   shiftPreview: {
     eyebrow: "The Shift",

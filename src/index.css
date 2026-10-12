@@ -16,6 +16,8 @@
     12. FOCUS AREAS PAGE
     13. CONTACT PAGE AND FORM
     14. TERMS AND PRIVACY PAGES
+    15. SCROLL ANIMATIONS: small helpers for Animations.jsx
+    16. BACK TO TOP BUTTON
 
   To change a colour, font or size, edit section 1 (VARIABLES) only.
   Please do not type colour codes anywhere else.
@@ -85,12 +87,19 @@
   --shadow-float: 0 12px 40px -18px rgba(10, 42, 99, 0.25);
   --shadow-lift: 0 24px 48px -24px rgba(10, 42, 99, 0.45);
 
-  /* Dark navy layer over the photo cards: strong at the top where the text is */
+  /* Dark layer over the hero photo so the white heading stays readable:
+     darkest at the bottom-left where the text is, clear at the top-right */
+  --hero-overlay:
+    linear-gradient(to top, rgba(2, 26, 66, 0.85) 0%, rgba(2, 26, 66, 0.45) 50%, rgba(2, 26, 66, 0.05) 85%),
+    linear-gradient(to right, rgba(2, 26, 66, 0.45) 0%, rgba(2, 26, 66, 0) 65%);
+
+  /* CGI blue layer over the photo cards: strongest at the top where the text is,
+     fading out at the bottom so the photo shows */
   --card-overlay: linear-gradient(
     to bottom,
-    rgba(2, 26, 66, 0.94) 0%,
-    rgba(2, 26, 66, 0.9) 70%,
-    rgba(2, 26, 66, 0.35) 100%
+    rgba(35, 79, 148, 0.84) 0%,
+    rgba(35, 79, 148, 0.8) 70%,
+    rgba(35, 79, 148, 0.1) 100%
   );
 
   /* Liquid glass (navbar, buttons, chips): see-through and blurred, with
@@ -400,7 +409,8 @@ textarea {
 /* The glass: tint, blur of whatever is behind, and the bright rims.
    Keep the -webkit- line FIRST, or "npm run build" drops the other one. */
 .btn,
-.chip {
+.chip,
+.back-to-top {
   background: var(--glass-tint);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
@@ -409,7 +419,8 @@ textarea {
 }
 
 .btn:hover,
-.chip:hover {
+.chip:hover,
+.back-to-top:hover {
   background: var(--glass-tint-hover);
 }
 
@@ -1054,16 +1065,36 @@ textarea {
    9. HOME PAGE
    ============================================================ */
 
-/* Hero: a still image filling the screen, text at the bottom-left */
+/* Hero: a photo filling the screen, text at the bottom-left */
 .home-hero {
+  position: relative;
+  isolation: isolate; /* keeps the photo layer behind the text */
+  overflow: clip;
   display: flex;
   align-items: flex-end;
   min-height: 100svh;
   padding: calc(var(--navbar-space) + 48px) 0 96px;
   background-color: var(--navy);
-  background-position: center;
-  background-size: cover;
   color: var(--on-dark);
+}
+
+/* The photo sits on its own layer so the parallax (Animations.jsx) can move it.
+   The path comes from HomePage.jsx. */
+.home-hero-photo {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--hero-image) center / cover no-repeat;
+}
+
+/* The dark layer over the photo. It stays still, so it always sits behind the text. */
+.home-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--hero-overlay);
 }
 
 .home-hero-title {
@@ -1130,14 +1161,19 @@ textarea {
   border-radius: var(--radius-large);
   color: var(--on-dark);
   text-decoration: none;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  /* The hover lift uses "translate", not "transform", so it never fights the
+     reveal animation in Animations.jsx (which moves the card with transform) */
+  transition: translate 0.5s cubic-bezier(0.16, 0.5, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* The photo is 20% taller than the card (10% spare at the top and bottom),
+   so the parallax in Animations.jsx has room to move it */
 .force-card-image {
   position: absolute;
-  inset: 0;
+  top: -10%;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: 120%;
   object-fit: cover;
 }
 
@@ -1185,7 +1221,7 @@ textarea {
 
 a.force-card:hover,
 a.force-card:focus-visible {
-  transform: translateY(-4px);
+  translate: 0 -4px;
   box-shadow: var(--shadow-lift);
 }
 
@@ -1203,7 +1239,7 @@ a.force-card:focus-visible .force-card-arrow {
 
 .force-card-text {
   margin-top: 12px;
-  color: var(--on-dark-muted);
+  color: var(--on-dark);
   font-size: var(--size-small);
 }
 
@@ -1215,7 +1251,10 @@ a.force-card:focus-visible .force-card-arrow {
   }
 
   a.force-card:hover,
-  a.force-card:focus-visible,
+  a.force-card:focus-visible {
+    translate: none;
+  }
+
   a.force-card:hover .force-card-arrow,
   a.force-card:focus-visible .force-card-arrow {
     transform: none;
@@ -1484,4 +1523,71 @@ a.force-card:focus-visible .force-card-arrow {
 
 .legal-section p {
   color: var(--muted);
+}
+
+
+/* ============================================================
+   15. SCROLL ANIMATIONS: small helpers for Animations.jsx
+   ============================================================ */
+
+/*
+  Smooth scrolling, parallax and the reveal animations all live in
+  src/components/Animations.jsx. Only this helper is needed here.
+*/
+
+/* Headings rise line by line from behind a "mask" that hides what is outside it.
+   A little extra room below each line stops letters like g and y being clipped. */
+.split-line-mask {
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+
+/* ============================================================
+   16. BACK TO TOP BUTTON
+   ============================================================ */
+
+/* Round glass button, bottom-right. Its glass look is shared with the buttons (section 3).
+   Hidden until the page is scrolled down (BackToTop.jsx adds "is-visible"). */
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 150; /* above the page, below the cookie banner and popup */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--ink);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden; /* also keeps it out of the keyboard's Tab order while hidden */
+  transition: opacity 0.3s, visibility 0.3s, background-color 0.2s;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
+}
+
+.back-to-top:active {
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 48px;
+    height: 48px;
+  }
 }

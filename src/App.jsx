@@ -8,6 +8,8 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
+import Animations from "./components/Animations.jsx";
+import BackToTop from "./components/BackToTop.jsx";
 import CookieBanner from "./components/CookieBanner.jsx";
 import CookieSettingsModal from "./components/CookieSettingsModal.jsx";
 
@@ -77,22 +79,31 @@ function App() {
       <ScrollToTop />
       <Navbar />
 
-      {/* The current page appears here */}
-      <main id="main-content">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/the-shift" element={<ShiftPage />} />
-          <Route path="/what-we-do" element={<WhatWeDoPage />} />
-          <Route path="/focus-areas" element={<FocusAreasPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </main>
+      {/* Smooth scrolling (Animations.jsx) moves everything inside these two boxes.
+          Things fixed to the screen (navbar, cookie popups) must stay outside them. */}
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          {/* The current page appears here */}
+          <main id="main-content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/the-shift" element={<ShiftPage />} />
+              <Route path="/what-we-do" element={<WhatWeDoPage />} />
+              <Route path="/focus-areas" element={<FocusAreasPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </main>
 
-      {/* The footer's "Cookie settings" button opens the popup */}
-      <Footer onOpenCookieSettings={() => setShowSettings(true)} />
+          {/* The footer's "Cookie settings" button opens the popup */}
+          <Footer onOpenCookieSettings={() => setShowSettings(true)} />
+        </div>
+      </div>
+
+      {/* Round glass "back to top" button (bottom-right, appears after scrolling) */}
+      <BackToTop />
 
       {/* Cookie banner: only on the first visit, and hidden while the popup is open */}
       {showBanner && !showSettings && (
@@ -112,6 +123,9 @@ function App() {
           onClose={() => setShowSettings(false)}
         />
       )}
+
+      {/* Smooth scrolling, parallax and reveal animations (set up after the page above) */}
+      <Animations />
     </>
   );
 }

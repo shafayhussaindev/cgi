@@ -17,8 +17,10 @@ function HomePage() {
 
   return (
     <>
-      {/* 1. Hero: a still background image with the main heading */}
-      <section className="home-hero" style={{ backgroundImage: "url(" + home.hero.image + ")" }}>
+      {/* 1. Hero: a background photo (with a gentle parallax) behind the main heading */}
+      <section className="home-hero" style={{ "--hero-image": "url(" + home.hero.image + ")" }}>
+        {/* The photo is its own layer so it can move slower than the page (parallax) */}
+        <div className="home-hero-photo" aria-hidden="true"></div>
         <div className="container">
           <span className="eyebrow eyebrow-light">{home.hero.eyebrow}</span>
           <h1 className="home-hero-title">{home.hero.title}</h1>

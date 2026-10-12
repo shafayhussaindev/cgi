@@ -93,9 +93,18 @@ The dark image behind the home page heading is `public/hero-bg.webp`, set in `co
 
 The footer shows the same photo behind its glass panel, set separately in `footer.backgroundImage`, so the two can differ if you like.
 
-The site has no animations on purpose. Only colours change gently when you hover a link or button.
+## 8c. Scroll animations (GSAP)
 
-## 8c. Liquid glass (navbar, buttons, chips)
+Smooth scrolling, the parallax on the hero and card photos, and the "reveal on scroll" animations all live in one file: `src/components/Animations.jsx`. They use GSAP (gsap.com), which is free, including for commercial use.
+
+- **Pausing:** they are currently **paused**. To turn them back on, open `Animations.jsx` and change `const ANIMATIONS_ON = false;` to `true`. Nothing else needs changing.
+- To make something new fade up as it scrolls into view, add its class to the `FADE_UPS` list in that file.
+- To change how fast the page glides, change `smooth: 1` (seconds).
+- Everything is switched off for visitors whose device asks for reduced motion, and smooth scrolling is off on touch screens.
+
+The page content sits inside `<div id="smooth-wrapper">` and `<div id="smooth-content">` in `App.jsx`. Anything fixed to the screen (like the navbar or a popup) must go **outside** those two boxes, or it will scroll away with the page.
+
+## 8d. Liquid glass (navbar, buttons, chips)
 
 The navbar, every button and the focus-area chips use an iOS-style "liquid glass" look: see-through, blurred, with bright edges. The settings are the `--glass-...` variables in section 1 of `src/index.css`.
 
