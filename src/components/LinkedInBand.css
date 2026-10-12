@@ -1,0 +1,29 @@
+/* Styles for the blue LinkedIn band above the footer */
+
+.linkedin-band {
+  padding: var(--section-padding) 0;
+  /* A very subtle gradient within one blue (allowed by the brand guide) */
+  /* The bottom fades to solid --blue-hover (#1C3F77), the same colour the
+     footer starts with, so the two sections merge with no visible edge */
+  background:
+    linear-gradient(to bottom, transparent 40%, var(--blue-hover)),
+    linear-gradient(135deg, var(--cgi-blue), var(--blue-hover));
+  color: var(--white);
+  text-align: center;
+}
+
+.linkedin-band-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.linkedin-band-title {
+  font-size: var(--size-section-title);
+  color: var(--white);
+}
+
+.linkedin-band-text {
+  margin: 20px auto 32px;
+  color: var(--ice);
+}

@@ -1,0 +1,401 @@
+/*
+  Global styles: basic resets, typography, section backgrounds and the .container class.
+  These apply to the whole website.
+*/
+
+/* Make sizes include padding and borders, and remove default margins */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--white);
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: 1.65;
+  overflow-x: hidden; /* nothing may scroll sideways */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* When jumping to a part of a page, leave room for the floating navbar */
+[id] {
+  scroll-margin-top: var(--navbar-space);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Headings use Saira */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: var(--size-section-title);
+}
+
+h3 {
+  font-size: var(--size-card-title);
+}
+
+/* Keep paragraphs comfortable to read (about 65 characters wide) */
+p {
+  max-width: 65ch;
+}
+
+a {
+  color: var(--cgi-blue);
+}
+
+/* A clear focus outline for keyboard users on every link and button */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--cgi-orange);
+  outline-offset: 3px;
+}
+
+/* Centres content and limits its width */
+.container {
+  width: 100%;
+  max-width: calc(var(--max-width) + var(--side-padding) * 2);
+  margin: 0 auto;
+  padding: 0 var(--side-padding);
+}
+
+/* Section backgrounds: alternate these down every page */
+.section-white,
+.section-ice,
+.section-blue {
+  padding: var(--section-padding) 0;
+}
+
+.section-white {
+  background: var(--white);
+}
+
+.section-ice {
+  background: var(--ice);
+}
+
+.section-blue {
+  background: var(--cgi-blue);
+  color: var(--white);
+}
+
+/* The first section on each page needs extra space for the floating navbar */
+.page-top {
+  padding-top: calc(var(--navbar-space) + 32px);
+}
+
+/* Small uppercase label above headings (orange on light backgrounds) */
+.eyebrow {
+  display: block;
+  margin-bottom: 16px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cgi-orange);
+}
+
+/* On blue backgrounds the eyebrow must be white (orange on blue is not allowed) */
+.section-blue .eyebrow,
+.eyebrow-white {
+  color: var(--white);
+}
+
+/* Small item numbers like 01, 02 */
+.item-number {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--size-caption);
+  color: var(--text-muted);
+}
+
+/* Hidden visually, but still read by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Glass cards ----------
+   Frosted glass needs something colourful behind it to blur,
+   so sections with glass cards get soft colour blobs (.glass-backdrop). */
+.glass-backdrop {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-backdrop::before,
+.glass-backdrop::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.glass-backdrop::before {
+  width: 520px;
+  height: 520px;
+  top: 10%;
+  left: -120px;
+  background: color-mix(in oklch, var(--cgi-blue) 28%, transparent);
+}
+
+.glass-backdrop::after {
+  width: 420px;
+  height: 420px;
+  bottom: -80px;
+  right: -60px;
+  background: color-mix(in oklch, var(--cgi-orange) 18%, transparent);
+}
+
+/* Keep the content above the blobs */
+.glass-backdrop > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* White frosted glass */
+.glass-card {
+  background: color-mix(in oklch, var(--white) 55%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid color-mix(in oklch, var(--white) 75%, transparent);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Blue frosted glass (white text goes on top) */
+.glass-card-blue {
+  background: color-mix(in oklch, var(--cgi-blue) 82%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid color-mix(in oklch, var(--white) 22%, transparent);
+  box-shadow: 0 16px 48px color-mix(in oklch, var(--cgi-blue) 30%, transparent),
+    inset 0 1px 0 color-mix(in oklch, var(--white) 25%, transparent);
+}
+
+/* Solid fallback for browsers that cannot blur */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-card {
+    background: var(--white);
+  }
+
+  .glass-card-blue {
+    background: var(--cgi-blue);
+  }
+}
+
+/* ---------- Tilt on hover (angles set by MotionEffects.jsx) ---------- */
+[data-tilt] {
+  transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 0.4s ease-out, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+[data-tilt]:hover {
+  transition: transform 0.1s linear, box-shadow 0.3s ease;
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* ---------- Parallax (distance set by MotionEffects.jsx) ---------- */
+[data-parallax] {
+  translate: 0 var(--parallax-y, 0px);
+  will-change: translate;
+}
+
+/* Gentle fade-up when a page loads. Content starts visible if animation is off. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main section > .container {
+  animation: fade-up 0.6s ease-out both;
+}
+
+/* ============================================================
+   ENTRANCE ANIMATION (plays once when the site first loads)
+   The script in index.html adds "anim" (hide) then "go" (play),
+   and removes both when done. The background video never animates.
+   ============================================================ */
+
+:root {
+  --e-reveal: cubic-bezier(0.16, 1, 0.3, 1); /* long, graceful settle */
+  --e-soft: cubic-bezier(0.25, 0.8, 0.3, 1); /* supporting elements */
+}
+
+/* Waiting state: everything is hidden just off its final position.
+   Each heading line sits in a "window" (overflow hidden) so it can rise into view. */
+html.anim .home-hero .ln {
+  overflow: hidden;
+  padding: 0.26em 0 0.14em;
+  margin: -0.26em 0 -0.14em;
+}
+
+html.anim .home-hero .ln-i {
+  transform: translateY(115%);
+}
+
+html.anim .logo,
+html.anim .menu-link,
+html.anim .end > *,
+html.anim .home-hero-eyebrow,
+html.anim .home-hero-text,
+html.anim .home-hero-buttons > * {
+  opacity: 0;
+}
+
+@keyframes line-rise {
+  from { transform: translateY(115%); }
+  to { transform: translateY(0); }
+}
+
+/* The subtitle rises and comes into focus (blur fades away) */
+@keyframes sub-in {
+  from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* Buttons rise and grow very slightly */
+@keyframes pill-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.972); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Logo, links and labels quietly rise */
+@keyframes lift-in {
+  from { opacity: 0; transform: translateY(9px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* The timeline: each item starts a little after the one before */
+html.anim.go .home-hero .ln-i { animation: line-rise 1.05s var(--e-reveal) both; }
+html.anim.go .home-hero .ln:nth-child(1) .ln-i { animation-delay: 0.12s; }
+html.anim.go .home-hero .ln:nth-child(2) .ln-i { animation-delay: 0.22s; }
+html.anim.go .home-hero .ln:nth-child(3) .ln-i { animation-delay: 0.32s; }
+
+html.anim.go .home-hero-eyebrow { animation: lift-in 0.62s var(--e-soft) 0.36s both; }
+html.anim.go .logo { animation: lift-in 0.62s var(--e-soft) 0.46s both; }
+html.anim.go .menu-link { animation: lift-in 0.55s var(--e-soft) both; }
+html.anim.go .menu-inner > ul > li:nth-child(1) .menu-link { animation-delay: 0.54s; }
+html.anim.go .menu-inner > ul > li:nth-child(2) .menu-link { animation-delay: 0.585s; }
+html.anim.go .menu-inner > ul > li:nth-child(3) .menu-link { animation-delay: 0.63s; }
+html.anim.go .menu-inner > ul > li:nth-child(4) .menu-link { animation-delay: 0.675s; }
+html.anim.go .home-hero-text { animation: sub-in 0.85s var(--e-reveal) 0.58s both; }
+html.anim.go .end > * { animation: pill-in 0.55s var(--e-soft) 0.72s both; }
+html.anim.go .home-hero-buttons > :nth-child(1) { animation: pill-in 0.7s var(--e-reveal) 0.9s both; }
+html.anim.go .home-hero-buttons > :nth-child(2) { animation: pill-in 0.7s var(--e-reveal) 0.97s both; }
+
+/* Phones: same idea, a little quicker and without the blur */
+@media (max-width: 552px) {
+  html.anim.go .home-hero-text { animation-name: lift-in; }
+  html.anim.go .home-hero .ln-i { animation-duration: 0.92s; }
+}
+
+/* Turn off animations for people who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- Glass boxes (Home "What we do" and the LinkedIn band) ----------
+   On hover the box lifts up and the text inside ripples through the
+   #glass-distort filter (defined in App.jsx). */
+.glass-box {
+  padding: 48px;
+  border-radius: 24px;
+  background: color-mix(in oklch, var(--white) 55%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid color-mix(in oklch, var(--white) 80%, transparent);
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.3, 1), box-shadow 0.4s ease;
+}
+
+/* Clear glass for blue backgrounds, so the white text stays readable */
+.glass-box-on-blue {
+  background: color-mix(in oklch, var(--white) 8%, transparent);
+  border-color: color-mix(in oklch, var(--white) 18%, transparent);
+  box-shadow: 0 8px 32px color-mix(in oklch, var(--text-dark) 20%, transparent),
+    inset 0 1px 0 color-mix(in oklch, var(--white) 25%, transparent);
+}
+
+/* Lift */
+.glass-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 56px color-mix(in oklch, var(--cgi-blue) 25%, transparent),
+    inset 0 1px 0 color-mix(in oklch, var(--white) 60%, transparent);
+}
+
+/* Ripple the text (not the button, so it stays easy to click and read) */
+.glass-box:hover > :not(.glass-button) {
+  filter: url(#glass-distort);
+}
+
+.glass-box > .section-header {
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .glass-box {
+    padding: 32px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-box:hover {
+    transform: none;
+  }
+
+  .glass-box:hover > :not(.glass-button) {
+    filter: none;
+  }
+}

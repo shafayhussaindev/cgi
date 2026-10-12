@@ -1,0 +1,119 @@
+/* Styles for The Shift page */
+
+/* One bordered panel. The 1px gap shows the ice colour as thin dividers. */
+.shift-panel {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--ice);
+  border: 1px solid var(--ice);
+  border-radius: var(--radius-large);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(35, 79, 148, 0.08);
+}
+
+.shift-cell {
+  display: flex;
+  flex-direction: column;
+  padding: 48px 40px;
+  background: var(--white);
+}
+
+/* ---------- Cells with a photo background ---------- */
+.shift-cell-photo {
+  position: relative;
+  overflow: hidden;
+  min-height: 380px;
+  justify-content: flex-end; /* text sits at the bottom, over the darkest part */
+  background: var(--blue-hover);
+}
+
+/* The photo fills the whole cell, with extra height above and below
+   so it can drift up and down when you scroll (parallax) without showing a gap */
+.shift-cell-image {
+  position: absolute;
+  top: -14%;
+  left: 0;
+  width: 100%;
+  height: 128%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+/* Dark blue gradient over the photo so the light text stays readable */
+.shift-cell-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--photo-overlay);
+}
+
+/* Keep the text above the photo and gradient */
+.shift-cell-photo > *:not(.shift-cell-image) {
+  position: relative;
+  z-index: 1;
+}
+
+.shift-cell-photo:hover .shift-cell-image {
+  transform: scale(1.04);
+}
+
+/* Light text on the photo: white title, ice text and number */
+.shift-cell-photo .item-number,
+.shift-cell-photo .shift-cell-text {
+  color: var(--ice);
+}
+
+.shift-cell-photo .shift-cell-title {
+  color: var(--white);
+}
+
+.shift-cell-photo .shift-cell-text {
+  flex-grow: 0;
+}
+
+/* Orange lines are not allowed on blue, so the line turns white */
+.shift-cell-photo .shift-cell-line {
+  background: var(--white);
+}
+
+.shift-cell-title {
+  margin: 16px 0 12px;
+  font-size: var(--size-card-title);
+}
+
+/* The text grows so the orange lines line up across a row */
+.shift-cell-text {
+  flex-grow: 1;
+  color: var(--text-dark);
+}
+
+/* The short 30px x 2px orange line */
+.shift-cell-line {
+  display: block;
+  width: 30px;
+  height: 2px;
+  margin-top: 32px;
+  background: var(--cgi-orange);
+}
+
+/* One column on mobile */
+@media (max-width: 768px) {
+  .shift-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .shift-cell {
+    padding: 32px 24px;
+  }
+
+  .shift-cell-photo {
+    min-height: 340px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shift-cell-photo:hover .shift-cell-image {
+    transform: none;
+  }
+}

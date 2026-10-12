@@ -1,0 +1,93 @@
+/* Styles for the What We Do page */
+
+/* Two columns on desktop */
+.what-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.what-title {
+  margin-bottom: 24px;
+  font-size: var(--size-page-title);
+}
+
+.what-paragraph + .what-paragraph {
+  margin-top: 16px;
+}
+
+/* ---------- Blue panel ---------- */
+.what-panel {
+  position: relative;
+  overflow: hidden;
+  padding: 48px 40px;
+  border-radius: var(--radius-large);
+  color: var(--white); /* blue glass look comes from .glass-card-blue */
+}
+
+.what-panel-rings {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 260px;
+  height: 260px;
+  pointer-events: none;
+}
+
+.what-panel-rings circle {
+  fill: none;
+  stroke: var(--ring-white);
+  stroke-width: 2;
+}
+
+.what-panel-title {
+  position: relative;
+  font-size: 30px;
+  color: var(--white);
+}
+
+.what-panel-text {
+  position: relative;
+  margin-top: 16px;
+  color: var(--ice);
+}
+
+/* Thin divider, then two small columns */
+.what-panel-columns {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line-on-blue);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.what-panel-columns .eyebrow {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.what-panel-column-text {
+  font-size: var(--size-small);
+  color: var(--ice);
+}
+
+/* Stack everything on smaller screens */
+@media (max-width: 900px) {
+  .what-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .what-panel {
+    padding: 32px 24px;
+  }
+
+  .what-panel-columns {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}

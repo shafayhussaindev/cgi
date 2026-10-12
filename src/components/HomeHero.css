@@ -1,0 +1,135 @@
+/* Styles for the full-screen video hero on the Home page */
+
+.home-hero {
+  /* One "unit" = 1px on a 1280 x 760 screen. Sizes below are multiples of it,
+     so the whole hero scales up and down with the window, like one picture. */
+  --u: min(calc(100vw / 1280), calc(100vh / 760));
+
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--navbar-space) var(--side-padding) 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--blue-hover);
+  color: var(--white);
+}
+
+@supports (height: 100dvh) {
+  .home-hero {
+    --u: min(calc(100vw / 1280), calc(100dvh / 760));
+  }
+}
+
+/* ---------- Background video ---------- */
+.home-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--blue-hover);
+}
+
+.home-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 51% 30%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.9s linear; /* the cross-fade (matches FADE in HomeHero.jsx) */
+  /* The clip is violet. This shifts it toward CGI blue (purple is off-brand). */
+  filter: hue-rotate(-42deg) saturate(0.85);
+}
+
+.home-hero-video.is-active {
+  opacity: 1;
+}
+
+/* Dark blue wash over the video so the white text stays readable.
+   Darker in the middle (behind the text) and at the bottom. */
+.home-hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 52%,
+      color-mix(in oklch, var(--blue-hover) 70%, transparent),
+      transparent 75%),
+    linear-gradient(to bottom,
+      color-mix(in oklch, var(--blue-hover) 35%, transparent),
+      color-mix(in oklch, var(--blue-hover) 55%, transparent) 70%,
+      var(--blue-hover));
+}
+
+/* ---------- Text and buttons ---------- */
+.home-hero-inner {
+  position: relative; /* sits above the video */
+  max-width: 100%;
+}
+
+.home-hero-eyebrow {
+  margin-bottom: max(16px, calc(22 * var(--u)));
+}
+
+.home-hero-title {
+  margin: 0;
+  font-size: max(40px, calc(76 * var(--u)));
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  color: var(--white);
+}
+
+/* Each heading line is a block, so the lines always break where we chose */
+.ln,
+.ln-i {
+  display: block;
+}
+
+.home-hero-text {
+  margin: max(20px, calc(24 * var(--u))) auto 0;
+  max-width: 58ch;
+  font-size: max(17px, calc(19 * var(--u)));
+  line-height: 1.6;
+  color: var(--ice);
+}
+
+.home-hero-buttons {
+  margin-top: max(28px, calc(36 * var(--u)));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 552px) {
+  .home-hero {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Sized from the screen width. "in consumer goods" is 8.75em wide in Saira Bold,
+     so dividing the space by 9 keeps every line whole except "digital transformation",
+     which breaks cleanly into two words. Change 9 if you change the heading text. */
+  .home-hero-title {
+    font-size: min(44px, calc((100vw - 40px) / 9));
+    line-height: 1.08;
+  }
+
+  .home-hero-text {
+    font-size: 16px;
+  }
+}
+
+/* Very narrow phones: stack the two buttons */
+@media (max-width: 380px) {
+  .home-hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}

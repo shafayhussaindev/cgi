@@ -1,0 +1,60 @@
+/* Styles for the Focus Areas page */
+
+/* The blue header does not need its usual bottom space under the intro */
+.section-blue .section-header {
+  margin-bottom: 0;
+}
+
+/* 3 columns on desktop */
+.focus-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.focus-card {
+  padding: 32px;
+  border-radius: var(--radius); /* glass look and tilt come from .glass-card and data-tilt */
+}
+
+.focus-card-number {
+  font-family: var(--font-mono);
+  font-size: var(--size-caption);
+  color: var(--cgi-orange);
+}
+
+.focus-card-title {
+  margin: 12px 0 8px;
+  font-size: var(--size-card-title);
+}
+
+.focus-card-text {
+  color: var(--text-muted);
+}
+
+/* The 7th card fills the whole last row as a wider, highlighted card */
+.focus-card:last-child {
+  grid-column: 1 / -1;
+  background: color-mix(in oklch, var(--ice) 70%, transparent);
+  border-left: 4px solid var(--cgi-blue);
+}
+
+/* 2 columns on tablet */
+@media (max-width: 1024px) {
+  .focus-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 1 column on mobile */
+@media (max-width: 640px) {
+  .focus-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .focus-card {
+    padding: 24px;
+  }
+}

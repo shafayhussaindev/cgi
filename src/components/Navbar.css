@@ -1,0 +1,372 @@
+/* Styles for the floating glass navbar and its hover dropdowns */
+
+/* Holds the capsule in place at the top centre of the screen */
+.navbar-wrapper {
+  position: fixed;
+  top: 16px;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none; /* clicks pass through the empty space around the capsule */
+}
+
+/* ---------- The capsule ---------- */ 
+.navbar {
+  /* Glass colour and edge light, shared by the capsule and the dropdown */
+  --bg: color-mix(in oklch, var(--ice) 75%, transparent);
+  --bs: inset 0 1px 0 color-mix(in oklch, var(--white) 60%, transparent),
+    inset 0 0 0 0.06rem color-mix(in oklch, var(--white) 50%, transparent),
+    0 8px 32px color-mix(in oklch, var(--cgi-blue) 10%, transparent);
+
+  pointer-events: auto;
+  position: relative;
+  z-index: 0; /* keeps the glass layer (::before) inside the navbar */
+  width: 1100px;
+  max-width: calc(100% - 32px);
+  height: 72px;
+  padding: 0 12px 0 32px;
+  display: flex;
+  align-items: center;
+}
+
+/* A bit more solid once the page has scrolled */
+.navbar-scrolled {
+  --bg: color-mix(in oklch, var(--white) 65%, transparent);
+}
+
+/* The glass itself sits on a layer behind the content.
+   This lets the dropdown have its own blur too. */
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 36px;
+  background: var(--bg);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: var(--bs);
+  transition: background 0.3s;
+}
+
+/* Empty spacer that pushes the Contact button to the right */
+.navbar > span {
+  margin-left: auto;
+}
+
+.logo {
+  margin-right: 28px;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+/* Contact button (and the mobile menu button) on the right */
+.end:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.end .glass-button {
+  padding: 10px 22px;
+}
+
+/* ---------- Main links ---------- */
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li {
+  padding: 0 8px;
+}
+
+/* Links are slightly faded until hovered */
+.navbar ul > li {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.navbar ul > li:hover,
+.navbar ul > li:focus-within,
+.navbar ul > li:has(> .active) {
+  opacity: 1;
+}
+
+.menu {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 24px;
+}
+
+/* Thin vertical divider between the logo and the links */
+.menu::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1px;
+  height: 24px;
+  translate: 0 -50%;
+  background: color-mix(in oklch, var(--text-dark) 18%, transparent);
+}
+
+.menu-inner {
+  position: relative;
+  height: 72px;
+}
+
+/* 4 equal columns, one per link in navLinks (change 4 if you add a link) */
+.menu-inner > ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 100%;
+}
+
+.menu-inner > ul > li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-link {
+  position: relative;
+  padding: 6px 0;
+  font-size: var(--size-small);
+  font-weight: 500;
+  color: var(--text-dark);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* The active page is blue with a small orange line under it */
+.menu-link.active {
+  color: var(--cgi-blue);
+  font-weight: 600;
+}
+
+.menu-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--cgi-orange);
+}
+
+/* ---------- Dropdown (submenu) ---------- */
+.submenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: -24px;
+  border-radius: 24px;
+  cursor: default;
+  background: color-mix(in oklch, var(--white) 88%, transparent);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: var(--bs);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+/* Each link's list is hidden until that link is hovered */
+.submenu > div {
+  position: relative;
+  display: none;
+  padding: 24px;
+}
+
+/* Invisible bridge over the 10px gap, so the dropdown stays open
+   while the mouse moves down into it */
+.submenu > div::before {
+  content: "";
+  position: absolute;
+  inset: -10px 0 auto;
+  height: 10px;
+}
+
+.submenu ul {
+  display: grid;
+  gap: 16px;
+}
+
+.submenu ul li {
+  padding: 0;
+}
+
+.submenu-link {
+  font-size: var(--size-small);
+  font-weight: 500;
+  color: var(--text-dark);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.submenu-link:hover {
+  color: var(--cgi-blue);
+}
+
+/* Show the panel while a link with a dropdown (or the panel itself) is hovered.
+   :focus-within does the same for keyboard users. */
+.menu-inner:has(> ul > li.has-submenu:hover) > .submenu,
+.menu-inner:has(> ul > li.has-submenu:focus-within) > .submenu,
+.submenu:hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Show the right list for the hovered link */
+.menu-inner:has(> ul > li:nth-child(2):hover) > .submenu > .submenu-2,
+.menu-inner:has(> ul > li:nth-child(2):focus-within) > .submenu > .submenu-2,
+.submenu > .submenu-2:hover,
+.menu-inner:has(> ul > li:nth-child(3):hover) > .submenu > .submenu-3,
+.menu-inner:has(> ul > li:nth-child(3):focus-within) > .submenu > .submenu-3,
+.submenu > .submenu-3:hover,
+.menu-inner:has(> ul > li:nth-child(4):hover) > .submenu > .submenu-4,
+.menu-inner:has(> ul > li:nth-child(4):focus-within) > .submenu > .submenu-4,
+.submenu > .submenu-4:hover {
+  display: grid;
+}
+
+/* Slide the panel under the hovered link (each column is 1/4 of the width) */
+.menu-inner:has(> ul > li:nth-child(2):hover) > .submenu,
+.menu-inner:has(> ul > li:nth-child(2):focus-within) > .submenu,
+.submenu:has(> .submenu-2:hover) {
+  left: calc(-24px + 100% / 4);
+}
+
+.menu-inner:has(> ul > li:nth-child(3):hover) > .submenu,
+.menu-inner:has(> ul > li:nth-child(3):focus-within) > .submenu,
+.submenu:has(> .submenu-3:hover) {
+  left: calc(-24px + 100% / 4 * 2);
+}
+
+.menu-inner:has(> ul > li:nth-child(4):hover) > .submenu,
+.menu-inner:has(> ul > li:nth-child(4):focus-within) > .submenu,
+.submenu:has(> .submenu-4:hover) {
+  left: calc(-24px + 100% / 4 * 3);
+}
+
+/* ---------- Mobile menu button and dropdown ---------- */
+.navbar-menu-button {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  background: var(--glass-white-solid);
+  color: var(--cgi-blue);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.navbar-mobile-menu {
+  pointer-events: auto;
+  width: calc(100% - 32px);
+  margin-top: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-large);
+  background: var(--glass-white-solid);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.navbar-mobile-link {
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  font-weight: 500;
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.navbar-mobile-link.active {
+  color: var(--cgi-blue);
+  font-weight: 600;
+  background: var(--ice);
+  box-shadow: inset 3px 0 0 var(--cgi-orange);
+}
+
+/* "Skip to content" link: only appears when focused with the keyboard */
+.navbar-skip-link {
+  pointer-events: auto;
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  background: var(--cgi-blue);
+  color: var(--white);
+  font-weight: 600;
+}
+
+.navbar-skip-link:focus {
+  top: 0;
+}
+
+/* Solid fallback for browsers that cannot blur */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .navbar,
+  .navbar-scrolled {
+    --bg: var(--white);
+  }
+
+  .submenu,
+  .navbar-mobile-menu {
+    background: var(--white);
+  }
+}
+
+/* ---------- Mobile (under 900px) ---------- */
+@media (max-width: 899px) {
+  .navbar {
+    height: 64px;
+    padding-left: 16px;
+    padding-right: 8px;
+  }
+
+  .navbar::before {
+    border-radius: var(--radius-pill);
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .navbar-menu-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Very small phones: shrink the logo and button so everything fits */
+@media (max-width: 400px) {
+  .logo {
+    margin-right: 8px;
+  }
+
+  .logo img {
+    height: 32px;
+  }
+
+  .end .glass-button {
+    padding: 10px 16px;
+  }
+}

@@ -1,0 +1,166 @@
+/* Styles for the Home page */
+
+/* ---------- The Shift preview cards ---------- */
+.home-force-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.home-force-card {
+  padding: 24px;
+  border-radius: var(--radius);
+  border-bottom: 2px solid var(--cgi-orange); /* glass look comes from .glass-card */
+}
+
+.home-force-title {
+  margin-top: 12px;
+  font-size: 20px;
+}
+
+/* "Read more →" style link */
+.home-text-link {
+  display: inline-block;
+  margin-top: 32px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.home-text-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Focus area marquee ---------- */
+/* The window the chips scroll through. Edges fade out instead of cutting off. */
+.home-marquee {
+  overflow: hidden;
+  padding: 12px 0;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+/* Two identical lists side by side. Moving left by exactly half (one list)
+   lands on the same picture, so the loop never jumps. */
+.home-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+/* Keeps moving on mouse hover. It only stops while a keyboard user
+   has tabbed onto a chip, so they can see what they're about to open. */
+.home-marquee:has(:focus-visible) .home-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.home-chip-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 12px 0 0; /* same as the gap, so the join between lists matches */
+  display: flex;
+  gap: 12px;
+}
+
+/* Liquid glass chip: frosted, with a light top edge and a glossy highlight */
+.home-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  white-space: nowrap;
+  background: color-mix(in oklch, var(--white) 45%, transparent);
+  backdrop-filter: blur(16px) saturate(1.8);
+  -webkit-backdrop-filter: blur(16px) saturate(1.8);
+  border: 1px solid color-mix(in oklch, var(--white) 75%, transparent);
+  box-shadow: 0 8px 24px color-mix(in oklch, var(--cgi-blue) 12%, transparent),
+    inset 0 1px 0 color-mix(in oklch, var(--white) 90%, transparent),
+    inset 0 -1px 0 color-mix(in oklch, var(--cgi-blue) 8%, transparent);
+  color: var(--text-dark);
+  font-size: var(--size-small);
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.2s ease;
+}
+
+/* Glossy shine across the top half */
+.home-chip::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 50% 0;
+  background: linear-gradient(to bottom, color-mix(in oklch, var(--white) 55%, transparent), transparent);
+  pointer-events: none;
+}
+
+.home-chip:hover {
+  color: var(--cgi-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px color-mix(in oklch, var(--cgi-blue) 20%, transparent),
+    inset 0 1px 0 var(--white);
+}
+
+/* Solid chips for browsers that cannot blur */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .home-chip {
+    background: var(--white);
+  }
+}
+
+/* Less motion: no scrolling, just wrap the chips onto rows */
+@media (prefers-reduced-motion: reduce) {
+  .home-marquee {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .home-marquee-track {
+    width: auto;
+  }
+
+  .home-chip-list {
+    flex-wrap: wrap;
+  }
+
+  .home-chip-list[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+.home-chip-number {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: var(--size-caption);
+  color: var(--cgi-orange);
+}
+
+/* ---------- Smaller screens ---------- */
+@media (max-width: 1024px) {
+  .home-force-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .home-force-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Blending sections together ----------
+   Each section fades into the colour of the next one across its bottom padding,
+   so there are no hard edges between sections.
+   ("section." makes these win over .section-white / .section-ice in global.css.) */
+section.home-blend-to-ice {
+  background: linear-gradient(to bottom, var(--white) calc(100% - var(--section-padding)), var(--ice));
+}
+
+section.home-blend-to-white {
+  background: linear-gradient(to bottom, var(--ice) calc(100% - var(--section-padding)), var(--white));
+}

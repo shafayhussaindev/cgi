@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Simple CGI "C" ring in brand blue with an orange accent -->
+  <path d="M26 8.5A12 12 0 1 0 26 23.5" fill="none" stroke="#234F94" stroke-width="4" stroke-linecap="round"/>
+  <rect x="18" y="20" width="6" height="3" rx="1" fill="#D25B31"/>
+</svg>
