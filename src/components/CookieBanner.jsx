@@ -7,7 +7,6 @@
 import { Link } from "react-router-dom";
 import GlassButton from "./GlassButton.jsx";
 import { cookies } from "../data/content.js";
-import "./CookieBanner.css";
 
 function CookieBanner(props) {
   return (

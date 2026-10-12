@@ -43,15 +43,14 @@ npm run preview
 ```
 src/
   data/content.js        ← ALL the text and links on the website
-  styles/variables.css   ← ALL colours, fonts and spacing
-  styles/global.css      ← shared styles (section backgrounds, eyebrow labels, etc.)
+  index.css              ← ALL the styles (colours, fonts, layout) in one file
   components/            ← reusable pieces (Navbar, Footer, buttons, cookie popups...)
   pages/                 ← one file per page
   App.jsx                ← the list of pages and the cookie logic
 public/                  ← images (logos) and the favicon
 ```
 
-Each component has its own CSS file next to it, e.g. `Navbar.jsx` + `Navbar.css`.
+All styles are in `src/index.css`, split into numbered sections (Navbar, Footer, Home page...). The list of sections is at the top of the file. Keep the GLOBAL section last: when two rules clash, the lower one wins.
 
 ## 5. How to change text
 
@@ -63,7 +62,7 @@ The Terms and Privacy pages contain **placeholder text**. Replace it in `legal.t
 
 ## 6. How to change colours and fonts
 
-Open `src/styles/variables.css`. The brand colours are at the top, for example:
+Open `src/index.css` and go to section 1 (VARIABLES). The brand colours are at the top, for example:
 
 ```css
 --cgi-blue: #234F94;
@@ -72,7 +71,7 @@ Open `src/styles/variables.css`. The brand colours are at the top, for example:
 
 Change a value once and it updates across the whole site. Please do not type colour codes anywhere else.
 
-Fonts are loaded from Google Fonts in `index.html` and named in `variables.css` (`--font-heading`, `--font-body`).
+Fonts are loaded from Google Fonts in `index.html` and named in section 1 of `index.css` (`--font-heading`, `--font-body`).
 
 ## 7. Where to put the LinkedIn link
 
@@ -90,9 +89,20 @@ Replace `public/logo-full-colour.png` (blue logo, for light backgrounds) and `pu
 
 ## 8b. The home page video
 
-The globe video behind the home page heading is set in `content.js` (`home.hero.videoUrl` and `posterUrl`). It is currently hosted by someone else; put your own `.mp4` in `public/` and change the address to e.g. `"/hero.mp4"`. The colour shift toward CGI blue is the `filter` line in `src/components/HomeHero.css`.
+The globe video behind the home page heading is set in `content.js` (`home.hero.videoUrl` and `posterUrl`). It is currently hosted by someone else; put your own `.mp4` in `public/` and change the address to e.g. `"/hero.mp4"`. The colour shift toward CGI blue is the `filter` line in the HOME HERO section of `src/index.css`.
 
-The heading's line breaks come from `home.hero.titleLines`. The short "slide in" animation when the site loads is explained at the top of `index.html` and at the bottom of `src/styles/global.css`.
+The heading's line breaks come from `home.hero.titleLines`. The short "slide in" animation when the site loads is explained at the top of `index.html` and in the GLOBAL section of `src/index.css`.
+
+## 8c. Glass effects on the live site
+
+Always write the blur as two lines in this order:
+
+```css
+-webkit-backdrop-filter: blur(16px);
+backdrop-filter: blur(16px);
+```
+
+If the plain `backdrop-filter` comes first, `npm run build` removes it and the glass looks solid on the deployed site, even though it looks fine in `npm run dev`.
 
 ## 9. How to add a new page
 

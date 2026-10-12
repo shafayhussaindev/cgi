@@ -5,7 +5,6 @@
 //   page - the legal text object from content.js (legal.terms or legal.privacy)
 
 import { legal } from "../data/content.js";
-import "./LegalContent.css";
 
 function LegalContent(props) {
   const page = props.page;

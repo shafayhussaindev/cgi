@@ -9,7 +9,6 @@
 import { useState, useEffect } from "react";
 import GlassButton from "./GlassButton.jsx";
 import { cookies } from "../data/content.js";
-import "./CookieSettingsModal.css";
 
 function CookieSettingsModal(props) {
   // Start the switches from the saved choice, or "off" if there is none

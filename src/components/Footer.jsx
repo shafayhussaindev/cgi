@@ -4,7 +4,6 @@
 import { Link } from "react-router-dom";
 import GlassButton from "./GlassButton.jsx";
 import { site, navLinks, footer } from "../data/content.js";
-import "./Footer.css";
 
 // The current year, so the copyright line stays up to date
 const year = new Date().getFullYear();

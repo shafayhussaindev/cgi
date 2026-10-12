@@ -5,7 +5,6 @@
 import { useState } from "react";
 import GlassButton from "./GlassButton.jsx";
 import { contact } from "../data/content.js";
-import "./ContactForm.css";
 
 // The empty form, used at the start and after sending
 const emptyForm = { name: "", email: "", company: "", reason: contact.reasons[0], message: "" };

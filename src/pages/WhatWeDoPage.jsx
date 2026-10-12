@@ -4,7 +4,6 @@
 import { useEffect } from "react";
 import LinkedInBand from "../components/LinkedInBand.jsx";
 import { site, whatWeDo } from "../data/content.js";
-import "./WhatWeDoPage.css";
 
 function WhatWeDoPage() {
   // Set the browser tab title

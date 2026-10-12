@@ -8,7 +8,6 @@
 import { useEffect } from "react";
 import GlassButton from "./GlassButton.jsx";
 import { site, home } from "../data/content.js";
-import "./HomeHero.css";
 
 // How many seconds the cross-fade takes (must match the CSS transition)
 const FADE = 0.9;

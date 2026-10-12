@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import GlassButton from "./GlassButton.jsx";
 import { site, navLinks } from "../data/content.js";
-import "./Navbar.css";
 
 function Navbar() {
   // true when the mobile dropdown menu is open

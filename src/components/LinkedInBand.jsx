@@ -3,7 +3,6 @@
 
 import GlassButton from "./GlassButton.jsx";
 import { site, linkedinBand } from "../data/content.js";
-import "./LinkedInBand.css";
 
 function LinkedInBand() {
   return (

@@ -6,7 +6,6 @@ import ContactForm from "../components/ContactForm.jsx";
 import GlassButton from "../components/GlassButton.jsx";
 import LinkedInBand from "../components/LinkedInBand.jsx";
 import { site, contact } from "../data/content.js";
-import "./ContactPage.css";
 
 function ContactPage() {
   // Set the browser tab title

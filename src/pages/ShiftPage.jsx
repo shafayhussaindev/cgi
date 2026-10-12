@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import SectionHeader from "../components/SectionHeader.jsx";
 import LinkedInBand from "../components/LinkedInBand.jsx";
 import { site, shift } from "../data/content.js";
-import "./ShiftPage.css";
 
 function ShiftPage() {
   // Set the browser tab title

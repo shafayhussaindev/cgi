@@ -77,7 +77,7 @@ function App() {
     <>
       <ScrollToTop />
 
-      {/* Hidden "ripple" filter used by .glass-box on hover (see global.css).
+      {/* Hidden "ripple" filter used by .glass-box on hover (see the GLOBAL section of index.css).
           It bends the text with slowly moving noise, like looking through wavy glass. */}
       <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
         <filter id="glass-distort" x="-5%" y="-10%" width="110%" height="120%">

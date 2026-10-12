@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import SectionHeader from "../components/SectionHeader.jsx";
 import LinkedInBand from "../components/LinkedInBand.jsx";
 import { site, focusAreas } from "../data/content.js";
-import "./FocusAreasPage.css";
 
 function FocusAreasPage() {
   // Set the browser tab title

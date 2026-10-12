@@ -10,7 +10,6 @@
 //   onClick   - a function to run when the button is clicked
 
 import { Link } from "react-router-dom";
-import "./GlassButton.css";
 
 function GlassButton(props) {
   // Choose the colour style

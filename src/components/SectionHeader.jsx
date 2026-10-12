@@ -7,8 +7,6 @@
 //   isPageTitle - true to use a big <h1> (one per page); otherwise an <h2>
 //   onBlue   - true when the section background is blue (makes the text white)
 
-import "./SectionHeader.css";
-
 function SectionHeader(props) {
   let className = "section-header";
   if (props.onBlue) {

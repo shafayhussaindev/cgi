@@ -8,7 +8,6 @@ import SectionHeader from "../components/SectionHeader.jsx";
 import LinkedInBand from "../components/LinkedInBand.jsx";
 import HomeHero from "../components/HomeHero.jsx";
 import { site, home, shift, whatWeDo, focusAreas } from "../data/content.js";
-import "./HomePage.css";
 
 function HomePage() {
   // Set the browser tab title
