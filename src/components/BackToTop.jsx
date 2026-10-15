@@ -2,7 +2,7 @@
 // It appears once you have scrolled down a little and takes you back to the top.
 
 import { useState, useEffect } from "react";
-import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { lenis } from "../smoothScroll.js";
 import Icon from "./Icon.jsx";
 
 // How far down (in pixels) the page must be scrolled before the button appears
@@ -25,11 +25,10 @@ function BackToTop() {
   }, []);
 
   function scrollToTop() {
-    // Glide to the top. With smooth scrolling on (Animations.jsx) the smoother does it;
+    // Glide to the top. With smooth scrolling on, Lenis does it;
     // otherwise the browser does, instantly for people who prefer less motion.
-    const smoother = ScrollSmoother.get();
-    if (smoother) {
-      smoother.scrollTo(0, true);
+    if (lenis) {
+      lenis.scrollTo(0);
     } else {
       const lessMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       window.scrollTo({ top: 0, behavior: lessMotion ? "auto" : "smooth" });

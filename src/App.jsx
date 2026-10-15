@@ -79,8 +79,7 @@ function App() {
       <ScrollToTop />
       <Navbar />
 
-      {/* Smooth scrolling (Animations.jsx) moves everything inside these two boxes.
-          Things fixed to the screen (navbar, cookie popups) must stay outside them. */}
+      {/* Lenis scrolls the native page; these containers preserve the page layout. */}
       <div id="smooth-wrapper">
         <div id="smooth-content">
           {/* The current page appears here */}

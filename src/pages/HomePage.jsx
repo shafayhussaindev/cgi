@@ -17,9 +17,9 @@ function HomePage() {
 
   return (
     <>
-      {/* 1. Hero: a background photo (with a gentle parallax) behind the main heading */}
+      {/* 1. Hero: a fixed background photo behind the scrolling heading */}
       <section className="home-hero" style={{ "--hero-image": "url(" + home.hero.image + ")" }}>
-        {/* The photo is its own layer so it can move slower than the page (parallax) */}
+        {/* The photo stays fixed as the hero content scrolls away */}
         <div className="home-hero-photo" aria-hidden="true"></div>
         <div className="container">
           <span className="eyebrow eyebrow-light">{home.hero.eyebrow}</span>

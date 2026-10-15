@@ -105,7 +105,7 @@
   /* Liquid glass (navbar, buttons, chips): see-through and blurred, with
      bright rims on the top-left and bottom-right edges where light catches.
      These are for light areas; dark areas swap them (see section 2). */
-  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur: blur(10px) saturate(180%);
   --glass-tint: rgba(255, 255, 255, 0.55);
   --glass-tint-hover: rgba(255, 255, 255, 0.85);
   --glass-shadow:
@@ -1078,14 +1078,14 @@ textarea {
   color: var(--on-dark);
 }
 
-/* The photo sits on its own layer so the parallax (Animations.jsx) can move it.
-   The path comes from HomePage.jsx. */
+/* Keep the photo fixed to the viewport while its hero frame scrolls away. */
 .home-hero-photo {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
   background: var(--hero-image) center / cover no-repeat;
+  background-attachment: fixed;
 }
 
 /* The dark layer over the photo. It stays still, so it always sits behind the text. */
@@ -1166,8 +1166,7 @@ textarea {
   transition: translate 0.5s cubic-bezier(0.16, 0.5, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* The photo is 20% taller than the card (10% spare at the top and bottom),
-   so the parallax in Animations.jsx has room to move it */
+/* The extra 10% at each edge keeps the photo covering the card during parallax. */
 .force-card-image {
   position: absolute;
   top: -10%;
