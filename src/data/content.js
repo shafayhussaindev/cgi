@@ -22,7 +22,6 @@ export const navLinks = [
 // ---------- Home page ----------
 export const home = {
   hero: {
-    eyebrow: "Consumer Goods Intelligence",
     title: "Making sense of digital transformation in consumer goods",
     text: "Plain-English insight on Digital Product Passports, ESG transparency, supply-chain visibility and the virtual factory, for the people building consumer goods.",
     linkedinButton: "LinkedIn",

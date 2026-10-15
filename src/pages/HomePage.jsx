@@ -22,7 +22,6 @@ function HomePage() {
         {/* The photo stays fixed as the hero content scrolls away */}
         <div className="home-hero-photo" aria-hidden="true"></div>
         <div className="container">
-          <span className="eyebrow eyebrow-light">{home.hero.eyebrow}</span>
           <h1 className="home-hero-title">{home.hero.title}</h1>
           <p className="home-hero-text">{home.hero.text}</p>
           <div className="button-row">
@@ -81,9 +80,7 @@ function HomePage() {
         <div className="container">
           <div className="header-row">
             <SectionHeader eyebrow={home.focusPreview.eyebrow} title={home.focusPreview.title} />
-            <Link to="/focus-areas" className="text-link">
-              {home.focusPreview.linkText} <span aria-hidden="true">→</span>
-            </Link>
+             <Button text={home.focusPreview.linkText} to="/focus-areas" variant="glass" showArrow={true} />
           </div>
 
           <ul className="chip-list">
