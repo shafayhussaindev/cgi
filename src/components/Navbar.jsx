@@ -12,7 +12,7 @@ function Navbar() {
   // true when the mobile dropdown menu is open
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // The number of the link for the current page (-1 if it is not in the menu, e.g. Contact)
+  // The number of the current page's link (-1 for pages outside the main menu).
   const location = useLocation();
   const activeIndex = navLinks.findIndex((link) => link.to === location.pathname);
 
@@ -70,8 +70,7 @@ function Navbar() {
         </ul>
 
         <div className="navbar-end">
-          {/* Contact is a button, not a normal link */}
-          <Button text="Contact" to="/contact" onClick={closeMenu} showArrow={true} />
+          <Button text="LinkedIn" href={site.linkedinUrl} onClick={closeMenu} showArrow={true} />
 
           {/* This button opens and closes the mobile menu */}
           <button

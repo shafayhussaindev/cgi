@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import SectionHeader from "../components/SectionHeader.jsx";
 import LinkedInBand from "../components/LinkedInBand.jsx";
 import Icon from "../components/Icon.jsx";
+import DotBackground from "../components/DotBackground.jsx";
 import { site, shift } from "../data/content.js";
 
 function ShiftPage() {
@@ -15,7 +16,8 @@ function ShiftPage() {
   return (
     <>
       {/* Page header (white) */}
-      <section className="section-white page-top">
+      <section className="section-white page-top dot-header">
+        <DotBackground />
         <div className="container">
           <SectionHeader eyebrow={shift.eyebrow} title={shift.title} intro={shift.intro} isPageTitle={true} />
         </div>

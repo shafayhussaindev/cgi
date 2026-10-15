@@ -8,7 +8,7 @@
 
 function SectionHeader(props) {
   return (
-    <div className="section-header">
+    <div className={"section-header" + (props.isPageTitle && props.intro ? " page-header" : "")}>
       {props.eyebrow && <span className="eyebrow">{props.eyebrow}</span>}
 
       {/* Pages get one big h1; sections inside a page use h2 */}

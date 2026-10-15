@@ -6,7 +6,7 @@ export const site = {
   name: "Consumer Goods Intelligence",
   tagline:
     "Digital transformation for fashion, footwear, electronics, textiles and consumer goods supply chains.",
-  linkedinUrl: "#", // TODO: paste your LinkedIn page link here
+  linkedinUrl: "https://www.linkedin.com/company/connected-consumer-goods-intelligence/home/",
   websiteText: "connectedconsumergoods.ai",
   websiteUrl: "https://connectedconsumergoods.ai",
 };
@@ -187,18 +187,17 @@ export const contact = {
 export const linkedinBand = {
   title: "Stay ahead of what is coming",
   text: "Follow the page for weekly insight on digital transformation, Digital Product Passports, ESG and the virtual factory. The newsletter launches soon.",
-  buttonText: "LinkedIn",
 };
 
 // ---------- Footer ----------
 export const footer = {
-  contactEyebrow: "Contact us",
+  contactEyebrow: "Connect with us",
   contactTitle: "Let's talk about your digital transformation.",
-  contactButton: "Get in touch",
+  contactButton: "Connect on LinkedIn",
   // Photo behind the frosted glass footer (the same one as the Home hero)
   backgroundImage: "/hero-bg.webp",
   exploreTitle: "Explore",
-  connectTitle: "Connect",
+  legalTitle: "Legal",
   rights: "Consumer Goods Intelligence. All rights reserved.",
   termsText: "Terms & Conditions",
   privacyText: "Privacy Policy",
@@ -264,7 +263,7 @@ export const legal = {
       },
       {
         heading: "Contact",
-        text: "If you have questions about these terms, please use the contact page. Placeholder text.",
+        text: "If you have questions about these terms, please connect with us on LinkedIn. Placeholder text.",
       },
     ],
   },
@@ -275,7 +274,7 @@ export const legal = {
     sections: [
       {
         heading: "Information we collect",
-        text: "We only collect the information you choose to send us, such as your name and email address in the contact form. Placeholder text.",
+        text: "We only collect the information you choose to send us. Placeholder text.",
       },
       {
         heading: "Cookies",
@@ -291,7 +290,7 @@ export const legal = {
       },
       {
         heading: "Contact",
-        text: "If you have questions about your privacy, please use the contact page. Placeholder text.",
+        text: "If you have questions about your privacy, please connect with us on LinkedIn. Placeholder text.",
       },
     ],
   },

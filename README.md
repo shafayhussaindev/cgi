@@ -78,10 +78,10 @@ The site uses one font, Plus Jakarta Sans. It is loaded from Google Fonts in `in
 Open `src/data/content.js` and find:
 
 ```js
-linkedinUrl: "#", // TODO: paste your LinkedIn page link here
+  linkedinUrl: "https://www.linkedin.com/company/connected-consumer-goods-intelligence/home/",
 ```
 
-Replace `#` with your page address, e.g. `"https://www.linkedin.com/company/your-page"`. Every LinkedIn button and link on the site uses this one value.
+Every LinkedIn button and link on the site uses this one value, including the navbar and footer connection buttons.
 
 ## 8. How to change the logos
 
@@ -95,9 +95,10 @@ The footer shows the same photo behind its glass panel, set separately in `foote
 
 ## 8c. Scroll animations (GSAP)
 
-`src/components/Animations.jsx` sets up the scrolling effects. Lenis is configured in `src/smoothScroll.js` and runs through GSAP's ticker, with ScrollTrigger updating the card parallax. The home hero photo stays fixed during scrolling through `background-attachment: fixed` in `src/index.css`.
+`src/components/Animations.jsx` sets up the scrolling effects. Lenis is configured in `src/smoothScroll.js` and runs through GSAP's ticker, with ScrollTrigger updating the card parallax. ScrollTrigger also keeps the mirrored home hero photo stationary as its content scrolls away. Reduced-motion visitors see a normal scrolling photo.
 
 - Card photos on Home and The Shift have scroll-driven parallax inside their existing frames. This stays enabled independently of the page-wide effects and respects reduced motion.
+- The Shift, What We Do and Focus Areas headers use `DotBackground.jsx`: blue dots gently enlarge and bend around the pointer, with a maximum 1.5× dot size. Touch and reduced-motion visitors see a static pattern.
 - Smooth scrolling and lightweight reveal animations are enabled. Content fades up 16px over 0.55 seconds, with cards staggered left to right. Set `ANIMATIONS_ON` to `false` to pause reveals.
 - To make something new fade up as it scrolls into view, add its class to the `FADE_UPS` list in that file.
 - To change how fast the page glides, change Lenis's `duration: 1.1` (seconds).
@@ -134,9 +135,9 @@ If the plain `backdrop-filter` comes first, `npm run build` removes it and the g
 
 Remember to alternate section backgrounds down the page: `section-white` (off-white), then `section-ice` (warm ivory), then `section-white`, and so on.
 
-## 10. The contact form
+## 10. Connecting on LinkedIn
 
-The form checks the fields and shows a thank-you message, but **does not send email yet**. In `src/components/ContactForm.jsx`, look for the `TODO` comment in `handleSubmit`. That is where a service like EmailJS or Formspree can be connected.
+The Contact page is no longer routed or linked. Connection buttons open the LinkedIn company page in a new tab. The old contact page and form source remain unhooked for reference.
 
 ## 11. Cookies
 

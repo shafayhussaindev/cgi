@@ -33,13 +33,14 @@
   /* Brand colours */
   --blue: #234F94;          /* CGI blue: main buttons, links, labels */
   --blue-hover: #1C3F77;    /* main buttons when hovered */
-  --orange: #D25B31;  
+  --orange: #D05A30;
   --orange-hover: #ce6944;      /* tiny accent only: the short line before labels */
-  --navy: #021A42;          /* dark areas: hero, LinkedIn band, footer, panels */
+  --navy: #061226;          /* dark areas: hero, LinkedIn band, footer, panels */
+  --navy-rich: #0A1931;
 
   /* Neutrals */
   --paper: #FEFEFE;         /* main background, cards */
-  --ivory: #E6ECF4;         /* every other section */
+  --ivory: #EBF1F8;         /* every other section */
   --ink: #1A1E1B;           /* main text */
   --muted: #6A6F66;         /* secondary text */
   --line: #E5E7EB;          /* thin borders and dividers */
@@ -50,6 +51,16 @@
   --on-dark: #FEFEFE;
   --on-dark-muted: rgba(253, 252, 248, 0.72);
   --on-dark-line: rgba(253, 252, 248, 0.14);
+  --card-body: rgba(226, 232, 240, 0.94);
+  --badge-glass: rgba(255, 255, 255, 0.1);
+  --badge-border: rgba(255, 255, 255, 0.2);
+  --texture-dot: #CBD5E1;
+  --warm-line: rgba(208, 90, 48, 0.4);
+  --panel-glow: rgba(35, 79, 148, 0.3);
+  --nav-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  --panel-shadow: 0 24px 56px -32px rgba(6, 18, 38, 0.5);
+  --focus-shadow: 0 8px 28px rgba(6, 18, 38, 0.05);
+  --focus-shadow-hover: 0 16px 36px rgba(6, 18, 38, 0.1);
 
   /* Font */
   --font: "Plus Jakarta Sans", Arial, sans-serif;
@@ -93,13 +104,12 @@
     linear-gradient(to top, rgba(2, 26, 66, 0.85) 0%, rgba(2, 26, 66, 0.45) 50%, rgba(2, 26, 66, 0.05) 85%),
     linear-gradient(to right, rgba(2, 26, 66, 0.45) 0%, rgba(2, 26, 66, 0) 65%);
 
-  /* CGI blue layer over the photo cards: strongest at the top where the text is,
-     fading out at the bottom so the photo shows */
+  /* Anchor the copy in deep navy while keeping the upper photo visible. */
   --card-overlay: linear-gradient(
-    to bottom,
-    rgba(35, 79, 148, 0.84) 0%,
-    rgba(35, 79, 148, 0.8) 70%,
-    rgba(35, 79, 148, 0.1) 100%
+    to top,
+    rgba(6, 18, 38, 0.98) 0%,
+    rgba(6, 18, 38, 0.86) 48%,
+    rgba(6, 18, 38, 0.2) 100%
   );
 
   /* Liquid glass (navbar, buttons, chips): see-through and blurred, with
@@ -119,7 +129,7 @@
     inset -1px -1px 0 rgba(255, 255, 255, 0.18),
     inset 0 0 16px rgba(255, 255, 255, 0.1),
     0 8px 24px -10px rgba(2, 26, 66, 0.5);
-  --glass-navbar: rgba(253, 252, 248, 0.72);  /* solid enough to read over the dark hero */
+  --glass-navbar: rgba(255, 255, 255, 0.85);
   --glass-blue: rgba(35, 79, 148, 0.85);
   --glass-blue-hover: rgba(28, 63, 119, 0.9);
   --glass-white: rgba(255, 255, 255, 0.88);
@@ -187,6 +197,7 @@ h3 {
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 ul {
@@ -257,7 +268,33 @@ textarea {
 
 /* First section of a page: extra space at the top for the floating navbar */
 .page-top {
+  position: relative;
+  isolation: isolate;
   padding-top: calc(var(--section-padding) + var(--navbar-space));
+}
+
+.page-top::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(var(--texture-dot) 1px, transparent 1px) 0 0 / 24px 24px;
+  mask-image: radial-gradient(ellipse at 85% 30%, black, transparent 75%);
+}
+
+.dot-header::before {
+  content: none;
+}
+
+.dot-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at 70% 35%, black 15%, transparent 90%);
 }
 
 /* Small uppercase label above headings, with a short line before it */
@@ -448,12 +485,12 @@ textarea {
 
 /* Bright white glass: the main action on dark backgrounds */
 .btn-light {
-  background: var(--orange);
-  color: var(--ice);
+  background: var(--glass-white);
+  color: var(--navy);
 }
 
 .btn-light:hover {
-  background: var(--orange-hover);
+  background: var(--glass-white-hover);
 }
 
 
@@ -489,21 +526,22 @@ textarea {
   background: var(--glass-navbar);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   backdrop-filter: blur(10px) saturate(180%);
-  box-shadow: var(--glass-shadow), var(--shadow-float);
+  border: 1px solid var(--line);
+  box-shadow: var(--nav-shadow);
 }
 
 /* No blur available, or the visitor asked for less see-through: make it solid */
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .navbar,
   .navbar-mobile-menu {
-    background: var(--muted);
+    background: var(--paper);
   }
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .navbar,
   .navbar-mobile-menu {
-    background: var(--muted);
+    background: var(--paper);
   }
 }
 
@@ -763,46 +801,13 @@ textarea {
 
 /* Bottom row with a thin line above it */
 .footer-bottom {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px 32px;
   padding-top: 32px;
   border-top: 1px solid var(--on-dark-line);
 }
 
-.footer-bottom-left {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 32px;
-}
-
-.footer-copyright,
-.footer-legal .footer-link {
+.footer-copyright {
   color: var(--on-dark-muted);
   font-size: var(--size-small);
-}
-
-.footer-legal {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 24px;
-}
-
-.footer-legal .footer-link:hover {
-  color: var(--on-dark);
-}
-
-.footer-social {
-  display: inline-flex;
-  color: var(--on-dark);
-}
-
-/* The "in" letters inside the white LinkedIn square */
-.footer-social-in {
-  stroke: var(--navy);
 }
 
 @media (max-width: 768px) {
@@ -820,7 +825,7 @@ textarea {
   }
 }
 
-/* Phones: stack the link columns so the long website address fits */
+/* Phones: stack the navigation columns. */
 @media (max-width: 560px) {
   .footer-links {
     grid-template-columns: 1fr;
@@ -1024,40 +1029,55 @@ textarea {
   margin-top: 24px;
 }
 
+@media (min-width: 901px) {
+  .page-header {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 32px;
+    max-width: none;
+  }
+
+  .page-header > .eyebrow,
+  .page-header > h1 {
+    grid-column: 1 / 8;
+  }
+
+  .page-header > .lead {
+    grid-column: 8 / -1;
+    grid-row: 1 / 3;
+    align-self: end;
+    margin-top: 0;
+    font-size: 18px;
+  }
+}
+
 
 /* ============================================================
    8. LINKEDIN BAND
    ============================================================ */
 
 .linkedin-band {
-  padding: var(--section-padding) 0;
+  padding: 64px 0 32px;
   background: var(--navy);
   color: var(--on-dark);
 }
 
 .linkedin-band-inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: start;
+  gap: 24px;
+  justify-items: center;
+  text-align: center;
 }
 
 .linkedin-band-title {
-  max-width: 14ch;
+  max-width: 28ch;
   font-size: var(--size-h2);
 }
 
 .linkedin-band-text {
-  margin-bottom: 32px;
+  max-width: 64ch;
   color: var(--on-dark-muted);
   font-size: var(--size-lead);
-}
-
-@media (max-width: 900px) {
-  .linkedin-band-inner {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
 }
 
 
@@ -1085,7 +1105,8 @@ textarea {
   inset: 0;
   z-index: -1;
   background: var(--hero-image) center / cover no-repeat;
-  background-attachment: fixed;
+  /* ScrollTrigger offsets this mirrored layer to keep it stationary in the viewport. */
+  transform: scaleX(-1);
 }
 
 /* The dark layer over the photo. It stays still, so it always sits behind the text. */
@@ -1174,6 +1195,12 @@ textarea {
   width: 100%;
   height: 120%;
   object-fit: cover;
+  transition: scale 0.7s var(--ease-glide);
+}
+
+.force-card:hover .force-card-image,
+.force-card:focus-visible .force-card-image {
+  scale: 1.05;
 }
 
 .force-card-content {
@@ -1182,16 +1209,16 @@ textarea {
   flex-direction: column;
   height: 100%;
   min-height: inherit;
-  padding: 24px;
+  padding: 28px;
   background: var(--card-overlay);
 }
 
-/* Icon circle on the left, arrow on the right */
+/* Glass badge on the left, arrow on the right */
 .force-card-top {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
 }
 
 .force-card-icon {
@@ -1200,8 +1227,12 @@ textarea {
   justify-content: center;
   width: 44px;
   height: 44px;
-  border: 1px solid var(--on-dark-line);
-  border-radius: var(--radius-pill);
+  border: 1px solid var(--badge-border);
+  border-radius: 12px;
+  background: var(--badge-glass);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 var(--on-dark-line);
 }
 
 .force-card-icon svg {
@@ -1231,6 +1262,7 @@ a.force-card:focus-visible .force-card-arrow {
 }
 
 .force-card-title {
+  margin-top: auto;
   font-size: var(--size-h4);
   line-height: 1.3;
   letter-spacing: -0.01em;
@@ -1238,8 +1270,9 @@ a.force-card:focus-visible .force-card-arrow {
 
 .force-card-text {
   margin-top: 12px;
-  color: var(--on-dark);
+  color: var(--card-body);
   font-size: var(--size-small);
+  line-height: 1.7;
 }
 
 /* People who prefer less motion: the arrow still appears, nothing moves */
@@ -1247,6 +1280,15 @@ a.force-card:focus-visible .force-card-arrow {
   .force-card,
   .force-card-arrow {
     transition: none;
+  }
+
+  .force-card-image {
+    transition: none;
+  }
+
+  .force-card:hover .force-card-image,
+  .force-card:focus-visible .force-card-image {
+    scale: none;
   }
 
   a.force-card:hover,
@@ -1282,7 +1324,29 @@ a.force-card:focus-visible .force-card-arrow {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 64px;
-  align-items: start;
+  align-items: center;
+}
+
+.what-section {
+  padding-top: 0;
+}
+
+.what-header .lead {
+  color: var(--ink);
+  font-size: var(--size-lead);
+  font-weight: 500;
+}
+
+.what-text > .lead:first-child {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.what-callout {
+  padding-left: 20px;
+  border-left: 2px solid var(--orange);
+  font-style: italic;
+  color: var(--navy-rich);
 }
 
 .what-text .section-header-title {
@@ -1292,9 +1356,11 @@ a.force-card:focus-visible .force-card-arrow {
 /* Dark panel on the right */
 .what-panel {
   padding: 48px;
-  background: var(--navy);
+  background: radial-gradient(ellipse at top right, var(--panel-glow), transparent 70%), linear-gradient(135deg, var(--navy-rich), var(--navy));
+  border: 1px solid var(--on-dark-line);
   border-radius: var(--radius-large);
   color: var(--on-dark);
+  box-shadow: var(--panel-shadow), inset 0 1px 0 var(--on-dark-line);
 }
 
 .what-panel-title {
@@ -1310,9 +1376,38 @@ a.force-card:focus-visible .force-card-arrow {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
+  margin-top: 24px;
+}
+
+.data-bridge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-top: 32px;
-  padding-top: 32px;
-  border-top: 1px solid var(--on-dark-line);
+  color: var(--on-dark);
+}
+
+.data-bridge::before,
+.data-bridge::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--blue), var(--on-dark-muted));
+}
+
+.data-bridge::after {
+  rotate: 180deg;
+}
+
+.data-bridge span {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--badge-border);
+  border-radius: var(--radius-pill);
+  background: var(--badge-glass);
+  box-shadow: 0 0 24px var(--panel-glow);
 }
 
 .what-panel-columns .eyebrow {
@@ -1348,20 +1443,54 @@ a.force-card:focus-visible .force-card-arrow {
 
 .focus-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 }
 
 .focus-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: grid;
   align-content: start;
   gap: 12px;
   padding: 32px;
+  box-shadow: var(--focus-shadow);
+  transition: translate 0.3s var(--ease-glide), box-shadow 0.3s, border-color 0.3s;
 }
 
-/* The 7th card fills the last row instead of sitting alone */
+.focus-card:first-child,
 .focus-card:last-child {
-  grid-column: 1 / -1;
+  grid-column: span 2;
+}
+
+.focus-card:hover {
+  translate: 0 -4px;
+  border-color: var(--warm-line);
+  box-shadow: var(--focus-shadow-hover);
+}
+
+.focus-card .item-number {
+  justify-self: start;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-family: ui-monospace, monospace;
+  color: var(--navy-rich);
+  background: var(--ivory);
+}
+
+.focus-watermark {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  z-index: -1;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ivory);
+  opacity: 0.7;
+  user-select: none;
+  pointer-events: none;
 }
 
 .focus-card-title {
@@ -1374,19 +1503,28 @@ a.force-card:focus-visible .force-card-arrow {
   color: var(--muted);
 }
 
-@media (max-width: 1024px) {
-  .focus-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .focus-grid {
     grid-template-columns: 1fr;
   }
 
   .focus-card {
     padding: 24px;
+  }
+
+  .focus-card:first-child,
+  .focus-card:last-child {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focus-card {
+    transition: none;
+  }
+
+  .focus-card:hover {
+    translate: none;
   }
 }
 

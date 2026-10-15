@@ -44,17 +44,29 @@ const FADE_UPS = [
   ".legal-notice",
   ".legal-section",
   ".linkedin-band-text",
-  ".linkedin-band .btn",
   ".footer-glass",
 ].join(", ");
 
 function Animations() {
   const location = useLocation();
 
-  // Move only the photos inside their existing clipped card frames.
+  // Keep the mirrored hero fixed and move photos inside their clipped card frames.
   useLayoutEffect(() => {
     const media = gsap.matchMedia();
     media.add(MOTION_OK, () => {
+      gsap.utils.toArray(".home-hero-photo").forEach((photo) => {
+        gsap.to(photo, {
+          y: () => photo.parentElement.offsetHeight,
+          ease: "none",
+          scrollTrigger: {
+            trigger: photo.parentElement,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        });
+      });
       gsap.utils.toArray(".force-card-image").forEach((image) => {
         gsap.fromTo(image, { yPercent: -8 }, {
           yPercent: 8,

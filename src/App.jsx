@@ -17,7 +17,6 @@ import HomePage from "./pages/HomePage.jsx";
 import ShiftPage from "./pages/ShiftPage.jsx";
 import WhatWeDoPage from "./pages/WhatWeDoPage.jsx";
 import FocusAreasPage from "./pages/FocusAreasPage.jsx";
-import ContactPage from "./pages/ContactPage.jsx";
 import TermsPage from "./pages/TermsPage.jsx";
 import PrivacyPage from "./pages/PrivacyPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
@@ -89,7 +88,6 @@ function App() {
               <Route path="/the-shift" element={<ShiftPage />} />
               <Route path="/what-we-do" element={<WhatWeDoPage />} />
               <Route path="/focus-areas" element={<FocusAreasPage />} />
-              <Route path="/contact" element={<ContactPage />} />
               <Route path="/terms" element={<TermsPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="*" element={<NotFoundPage />} />
